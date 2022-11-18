@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="background">
+      <div className="app">
+        <div className="text">Выберете желаемую дату</div>
+
+        <form>
+          <input type="date"></input>
+          <button type="submit">Начать отсчет</button>
+        </form>
+
+        <div className="timer">
+          <span className="hours">00</span>
+          <span className="dots">:</span>
+          <span className="seconds">00</span>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
