@@ -14,18 +14,25 @@ const App = () => {
   const days = padTime(Math.floor(timeLeft / (1000 * 60 * 60 * 24)));
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeLeft((timeLeft) => (timeLeft > 0 ? timeLeft - 1000 : ""));
-    }, 1000);
+    if (localStorage.getItem("wishtime")) {
+      let dif = localStorage.getItem("wishtime");
 
-    return () => {
-      clearInterval(interval);
-    };
+      const interval = setInterval(() => {
+        setTimeLeft(dif > 0 ? dif : "");
+      }, 1000);
+
+      localStorage.setItem("wishtime", dif - 1000);
+
+      return () => {
+        clearInterval(interval);
+      };
+    }
   }, [timeLeft]);
 
   const dateChangeHandler = (event) => {
     const chooseDate = new Date(event.target.value).getTime();
     const dateNow = new Date().getTime();
+    localStorage.setItem("wishtime", chooseDate - dateNow);
 
     setTimeLeft(Math.abs(chooseDate - dateNow));
     setInputValue("");
@@ -34,6 +41,7 @@ const App = () => {
 
   const stopTimerHandler = (event) => {
     event.preventDefault();
+    localStorage.removeItem("wishtime");
     setTimeLeft("00");
     setToggleInptuButton(false);
   };
