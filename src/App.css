@@ -13,9 +13,8 @@
   align-items: center;
   justify-content: center;
 
-  padding: 30px 70px;
-  width: 60vw;
-  height: 50vh;
+  padding: 60px 140px;
+
   background: rgba(9, 33, 67, 0.8);
   box-shadow: 24px 26px 4px -11px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
@@ -44,15 +43,25 @@
 .button {
   border-radius: 10px;
   text-align: center;
-  padding: 5px 0;
+  padding: 10px 10px;
+  font-weight: 800;
+  font-size: 15px;
 }
 
 .timer {
   display: flex;
   font-weight: 800;
   font-size: 64px;
-  line-height: 96px;
   text-align: center;
 
   color: #ffffff;
+}
+
+.column {
+  min-width: 100px;
+}
+
+.column p {
+  font-size: 20px;
+  margin: 0;
 }

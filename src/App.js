@@ -3,6 +3,8 @@ import "./App.css";
 
 const App = () => {
   const [timeLeft, setTimeLeft] = useState("00");
+  const [inputValue, setInputValue] = useState("");
+  const [toggleInptuButton, setToggleInptuButton] = useState(false);
 
   const padTime = (time) => time.toString().padStart(2, 0);
 
@@ -26,11 +28,14 @@ const App = () => {
     const dateNow = new Date().getTime();
 
     setTimeLeft(Math.abs(chooseDate - dateNow));
+    setInputValue("");
+    setToggleInptuButton(true);
   };
 
   const stopTimerHandler = (event) => {
     event.preventDefault();
     setTimeLeft("00");
+    setToggleInptuButton(false);
   };
 
   return (
@@ -39,26 +44,48 @@ const App = () => {
         <div className="text">Выберете желаемую дату</div>
 
         <form>
-          <input
-            // value={timeLeft}
-            onChange={dateChangeHandler}
-            className="input"
-            type="date"
-          />
+          {!toggleInptuButton && (
+            <input
+              value={inputValue}
+              onChange={dateChangeHandler}
+              className="input"
+              type="date"
+            />
+          )}
 
-          <button onClick={stopTimerHandler} className="button" type="submit">
-            Остановить таймер
-          </button>
+          {toggleInptuButton && (
+            <button onClick={stopTimerHandler} className="button" type="submit">
+              Остановить таймер
+            </button>
+          )}
         </form>
 
         <div className="timer">
-          <span className="days">{days}</span>
+          <div className="column">
+            <span className="days">{days}</span>
+            <p>Дни</p>
+          </div>
+
           <span className="dots">:</span>
-          <span className="hours">{hours}</span>
+
+          <div className="column">
+            <span className="hours">{hours}</span>
+            <p>Часы</p>
+          </div>
+
           <span className="dots">:</span>
-          <span className="minutes">{minutes}</span>
+
+          <div className="column">
+            <span className="minutes">{minutes}</span>
+            <p>Минуты</p>
+          </div>
+
           <span className="dots">:</span>
-          <span className="seconds">{seconds}</span>
+
+          <div className="column">
+            <span className="seconds">{seconds}</span>
+            <p>Секунды</p>
+          </div>
         </div>
       </div>
     </div>
