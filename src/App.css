@@ -26,3 +26,33 @@
   display: flex;
   flex-direction: column;
 }
+
+.app .text {
+  font-weight: 500;
+  font-size: 30px;
+  color: #ffffff;
+  padding: 10px 0;
+}
+
+.input {
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px 10px;
+  margin-bottom: 10px;
+}
+
+.button {
+  border-radius: 10px;
+  text-align: center;
+  padding: 5px 0;
+}
+
+.timer {
+  display: flex;
+  font-weight: 800;
+  font-size: 64px;
+  line-height: 96px;
+  text-align: center;
+
+  color: #ffffff;
+}
