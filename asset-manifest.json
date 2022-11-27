@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/wish-timer/static/css/main.7998f8ca.css",
-    "main.js": "/wish-timer/static/js/main.744bc346.js",
+    "main.js": "/wish-timer/static/js/main.8f84c356.js",
     "index.html": "/wish-timer/index.html",
     "main.7998f8ca.css.map": "/wish-timer/static/css/main.7998f8ca.css.map",
-    "main.744bc346.js.map": "/wish-timer/static/js/main.744bc346.js.map"
+    "main.8f84c356.js.map": "/wish-timer/static/js/main.8f84c356.js.map"
   },
   "entrypoints": [
     "static/css/main.7998f8ca.css",
-    "static/js/main.744bc346.js"
+    "static/js/main.8f84c356.js"
   ]
 }
