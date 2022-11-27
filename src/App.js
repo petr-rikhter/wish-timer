@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 const App = () => {
+  const [errorInput, setErrorInput] = useState(false);
+  const [pastErrorDate, setPastErrorDate] = useState(false);
+
   const [timeLeft, setTimeLeft] = useState("00");
   const inputValue = useRef();
   const [toggleInptuButton, setToggleInptuButton] = useState(
@@ -14,6 +17,15 @@ const App = () => {
   const minutes = padTime(Math.floor(timeLeft / (1000 * 60)) % 60);
   const hours = padTime(Math.floor(timeLeft / (1000 * 60 * 60)) % 24);
   const days = padTime(Math.floor(timeLeft / (1000 * 60 * 60 * 24)));
+
+  const hideErrorInput = () => {
+    if (new Date(inputValue.current.value).getTime() <= new Date().getTime()) {
+      setPastErrorDate(true);
+    } else {
+      setPastErrorDate(false);
+    }
+    setErrorInput(false);
+  };
 
   useEffect(() => {
     if (localStorage.getItem("wishtime")) {
@@ -32,16 +44,25 @@ const App = () => {
   }, [timeLeft]);
 
   const startTimerHandler = (event) => {
-    event.preventDefault();
+    if (new Date(inputValue.current.value).getTime() <= new Date().getTime()) {
+      setPastErrorDate(true);
+      return;
+    }
+    if (!inputValue.current.value) {
+      setErrorInput(true);
+      return;
+    } else {
+      event.preventDefault();
 
-    const chooseDate = new Date(inputValue.current.value).getTime();
-    const dateNow = new Date().getTime();
+      const chooseDate = new Date(inputValue.current.value).getTime();
+      const dateNow = new Date().getTime();
 
-    setTimeLeft(Math.abs(chooseDate - dateNow));
-    setToggleInptuButton(true);
+      setTimeLeft(Math.abs(chooseDate - dateNow));
+      setToggleInptuButton(true);
 
-    localStorage.setItem("wishtime", chooseDate - dateNow);
-    localStorage.setItem("toggle", true);
+      localStorage.setItem("wishtime", chooseDate - dateNow);
+      localStorage.setItem("toggle", true);
+    }
   };
 
   const stopTimerHandler = (event) => {
@@ -57,27 +78,40 @@ const App = () => {
   return (
     <div className="background">
       <div className="app">
-        <div className="text">Выберете желаемую дату</div>
+        {!toggleInptuButton && (
+          <div className="text">Выберете желаемую дату</div>
+        )}
+        {errorInput && (
+          <div className="text" style={{ color: "red" }}>
+            Введите любую дату!
+          </div>
+        )}
+        {pastErrorDate && (
+          <div className="text" style={{ color: "red" }}>
+            Введите дату больше текущей!
+          </div>
+        )}
 
         <form>
           {!toggleInptuButton && (
-            <input ref={inputValue} className="input" type="date" />
+            <input
+              ref={inputValue}
+              onChange={hideErrorInput}
+              className="input"
+              type="date"
+            />
           )}
 
           {!toggleInptuButton && (
-            <button
-              onClick={startTimerHandler}
-              className="button"
-              type="button"
-            >
+            <div onClick={startTimerHandler} className="button">
               Запустить таймер
-            </button>
+            </div>
           )}
 
           {toggleInptuButton && (
-            <button onClick={stopTimerHandler} className="button" type="button">
+            <div onClick={stopTimerHandler} className="button">
               Остановить таймер
-            </button>
+            </div>
           )}
         </form>
 

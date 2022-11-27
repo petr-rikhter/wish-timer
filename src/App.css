@@ -12,9 +12,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   padding: 60px 140px;
-
   background: rgba(9, 33, 67, 0.8);
   box-shadow: 24px 26px 4px -11px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
@@ -24,9 +22,12 @@
 .app form {
   display: flex;
   flex-direction: column;
+  padding: 10px;
 }
 
 .app .text {
+  display: flex;
+  text-align: center;
   font-weight: 500;
   font-size: 30px;
   color: #ffffff;
@@ -38,14 +39,22 @@
   text-align: center;
   padding: 10px 10px;
   margin-bottom: 10px;
+  color: rgb(9, 33, 67);
 }
 
 .button {
+  cursor: pointer;
   border-radius: 10px;
   text-align: center;
-  padding: 10px 10px;
+  background-color: #ffffff;
+  padding: 7px 7px;
   font-weight: 800;
   font-size: 15px;
+  color: rgb(9, 33, 67);
+}
+
+.button:hover {
+  transform: scale(1.05);
 }
 
 .timer {
@@ -87,5 +96,10 @@
 
   .column {
     min-width: 63px;
+  }
+
+  .button {
+    font-weight: 700;
+    font-size: 13px;
   }
 }
