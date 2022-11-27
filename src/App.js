@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 const App = () => {
-  const [errorInput, setErrorInput] = useState(false);
   const [pastErrorDate, setPastErrorDate] = useState(false);
 
   const [timeLeft, setTimeLeft] = useState("00");
@@ -22,13 +21,14 @@ const App = () => {
     if (!inputValue.current.value) {
       return;
     }
-    if (new Date(inputValue.current.value).getTime() <= new Date().getTime()) {
+    if (
+      new Date(inputValue.current.value).getTime() +
+        new Date(inputValue.current.value).getTimezoneOffset() * 60000 <=
+      new Date(new Date().getTime())
+    ) {
       setPastErrorDate(true);
     } else {
       setPastErrorDate(false);
-    }
-    if (inputValue.current.value) {
-      setErrorInput(false);
     }
   };
 
@@ -49,17 +49,22 @@ const App = () => {
   }, [timeLeft]);
 
   const startTimerHandler = (event) => {
-    if (new Date(inputValue.current.value).getTime() <= new Date().getTime()) {
+    if (
+      new Date(inputValue.current.value).getTime() +
+        new Date(inputValue.current.value).getTimezoneOffset() * 60000 <=
+      new Date().getTime()
+    ) {
       setPastErrorDate(true);
       return;
     }
     if (!inputValue.current.value) {
-      setErrorInput(true);
       return;
     } else {
       event.preventDefault();
 
-      const chooseDate = new Date(inputValue.current.value).getTime();
+      const chooseDate =
+        new Date(inputValue.current.value).getTime() +
+        new Date(inputValue.current.value).getTimezoneOffset() * 60000;
       const dateNow = new Date().getTime();
 
       setTimeLeft(Math.abs(chooseDate - dateNow));
@@ -86,11 +91,7 @@ const App = () => {
         {!toggleInptuButton && (
           <div className="text">Выберете желаемую дату</div>
         )}
-        {errorInput && (
-          <div className="text" style={{ color: "red" }}>
-            Введите любую дату!
-          </div>
-        )}
+
         {pastErrorDate && (
           <div className="text" style={{ color: "red" }}>
             Введите дату больше текущей!
@@ -104,6 +105,11 @@ const App = () => {
               onChange={hideErrorInput}
               className="input"
               type="date"
+              defaultValue={new Date(
+                new Date().getTime() - new Date().getTimezoneOffset() * 60000
+              )
+                .toISOString()
+                .substring(0, 10)}
             />
           )}
 
