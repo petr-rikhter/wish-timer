@@ -4,4 +4,6 @@ body {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   background: rgba(95, 123, 161, 0.8);
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
