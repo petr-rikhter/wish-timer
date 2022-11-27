@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 const App = () => {
   const [timeLeft, setTimeLeft] = useState("00");
-  const [inputValue, setInputValue] = useState("");
+  const inputValue = useRef();
   const [toggleInptuButton, setToggleInptuButton] = useState(
-    localStorage.getItem("toggle") ? localStorage.getItem("toggle") : false
+    localStorage.getItem("toggle") || false
   );
 
   const padTime = (time) => time.toString().padStart(2, 0);
@@ -31,25 +31,26 @@ const App = () => {
     }
   }, [timeLeft]);
 
-  const dateChangeHandler = (event) => {
-    const chooseDate = new Date(event.target.value).getTime();
+  const startTimerHandler = (event) => {
+    event.preventDefault();
+
+    const chooseDate = new Date(inputValue.current.value).getTime();
     const dateNow = new Date().getTime();
-    localStorage.setItem("wishtime", chooseDate - dateNow);
 
     setTimeLeft(Math.abs(chooseDate - dateNow));
-    setInputValue("");
+    setToggleInptuButton(true);
 
+    localStorage.setItem("wishtime", chooseDate - dateNow);
     localStorage.setItem("toggle", true);
-    const toggle = localStorage.getItem("toggle");
-    setToggleInptuButton(toggle);
   };
 
   const stopTimerHandler = (event) => {
     event.preventDefault();
-    localStorage.removeItem("wishtime");
-    setTimeLeft("00");
 
+    setTimeLeft("00");
     setToggleInptuButton(false);
+
+    localStorage.removeItem("wishtime");
     localStorage.removeItem("toggle");
   };
 
@@ -60,17 +61,21 @@ const App = () => {
 
         <form>
           {!toggleInptuButton && (
-            <input
-              value={inputValue}
-              onChange={dateChangeHandler}
-              className="input"
-              type="date"
-            />
+            <input ref={inputValue} className="input" type="date" />
           )}
 
           {toggleInptuButton && (
             <button onClick={stopTimerHandler} className="button" type="submit">
               Остановить таймер
+            </button>
+          )}
+          {!toggleInptuButton && (
+            <button
+              onClick={startTimerHandler}
+              className="button"
+              type="submit"
+            >
+              Запустить таймер
             </button>
           )}
         </form>
