@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/wish-timer/static/css/main.7998f8ca.css",
+    "main.js": "/wish-timer/static/js/main.2b4890cb.js",
+    "index.html": "/wish-timer/index.html",
+    "main.7998f8ca.css.map": "/wish-timer/static/css/main.7998f8ca.css.map",
+    "main.2b4890cb.js.map": "/wish-timer/static/js/main.2b4890cb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7998f8ca.css",
+    "static/js/main.2b4890cb.js"
+  ]
+}
