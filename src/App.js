@@ -4,7 +4,9 @@ import "./App.css";
 const App = () => {
   const [timeLeft, setTimeLeft] = useState("00");
   const [inputValue, setInputValue] = useState("");
-  const [toggleInptuButton, setToggleInptuButton] = useState(false);
+  const [toggleInptuButton, setToggleInptuButton] = useState(
+    localStorage.getItem("toggle") ? localStorage.getItem("toggle") : false
+  );
 
   const padTime = (time) => time.toString().padStart(2, 0);
 
@@ -36,14 +38,19 @@ const App = () => {
 
     setTimeLeft(Math.abs(chooseDate - dateNow));
     setInputValue("");
-    setToggleInptuButton(true);
+
+    localStorage.setItem("toggle", true);
+    const toggle = localStorage.getItem("toggle");
+    setToggleInptuButton(toggle);
   };
 
   const stopTimerHandler = (event) => {
     event.preventDefault();
     localStorage.removeItem("wishtime");
     setTimeLeft("00");
+
     setToggleInptuButton(false);
+    localStorage.removeItem("toggle");
   };
 
   return (
