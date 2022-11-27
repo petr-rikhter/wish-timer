@@ -64,18 +64,19 @@ const App = () => {
             <input ref={inputValue} className="input" type="date" />
           )}
 
-          {toggleInptuButton && (
-            <button onClick={stopTimerHandler} className="button" type="submit">
-              Остановить таймер
-            </button>
-          )}
           {!toggleInptuButton && (
             <button
               onClick={startTimerHandler}
               className="button"
-              type="submit"
+              type="button"
             >
               Запустить таймер
+            </button>
+          )}
+
+          {toggleInptuButton && (
+            <button onClick={stopTimerHandler} className="button" type="button">
+              Остановить таймер
             </button>
           )}
         </form>
