@@ -19,6 +19,9 @@ const App = () => {
   const days = padTime(Math.floor(timeLeft / (1000 * 60 * 60 * 24)));
 
   const hideErrorInput = () => {
+    if (inputValue.current.value) {
+      return;
+    }
     if (new Date(inputValue.current.value).getTime() <= new Date().getTime()) {
       setPastErrorDate(true);
     } else {
