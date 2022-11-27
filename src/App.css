@@ -65,3 +65,27 @@
   font-size: 20px;
   margin: 0;
 }
+
+@media (max-width: 810px) {
+  .app {
+    padding: 20px 20px;
+
+    box-shadow: 12px 13px 2px -6px rgba(0, 0, 0, 0.5);
+  }
+
+  .app .text {
+    font-size: 20px;
+  }
+
+  .timer {
+    font-size: 15px;
+  }
+
+  .column p {
+    font-size: 10px;
+  }
+
+  .column {
+    min-width: 63px;
+  }
+}
